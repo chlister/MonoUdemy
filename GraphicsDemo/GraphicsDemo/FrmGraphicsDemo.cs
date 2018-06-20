@@ -26,6 +26,7 @@ namespace GraphicsDemo
         {
             Graphics g = e.Graphics;
 
+            
             // Create a font
             Font f = new Font("Verdana", 30);
             // Create brush
@@ -48,7 +49,22 @@ namespace GraphicsDemo
             // Create a circle
             SolidBrush snew = new SolidBrush(Color.DarkBlue);
             g.FillEllipse(snew, 200, 40, 20,20);
+            
+            
+            // Challenge Draw an X on the screen
+            int posx = ClientRectangle.Width;
+            int posy = ClientRectangle.Height;
 
+            //Draw the line(s)
+            g.DrawLine(p, posx-posx, posy-posy, posx, posy);
+            g.DrawLine(p, posx, posy-posy, posx-posx, posy);
+            g.DrawLine(p, posx/2, posy-posy, posx/2, posy);
+            g.DrawLine(p, posx-posx, posy/2, posx, posy/2);
+
+            p.Dispose();
+            b.Dispose();
+            f.Dispose();
+            
         }
     }
 }
