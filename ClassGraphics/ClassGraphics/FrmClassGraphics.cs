@@ -35,5 +35,12 @@ namespace ClassGraphics
             face4.PaintFace(g);
 
         }
+
+        private void DoubleClickFace(object sender, EventArgs e)
+        {
+            MouseEventArgs m = (MouseEventArgs)e;
+            Face f = new Face(m.Location.X, m.Location.Y, Color.Green, Color.Yellow);
+            f.PaintFace(g);
+        }
     }
 }

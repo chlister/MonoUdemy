@@ -50,6 +50,7 @@
             this.Name = "FrmClassGraphics";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.FrmClassGraphics_Load);
+            this.DoubleClick += new System.EventHandler(this.DoubleClickFace);
             this.ResumeLayout(false);
 
         }
