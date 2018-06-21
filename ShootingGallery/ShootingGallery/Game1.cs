@@ -38,7 +38,7 @@ namespace ShootingGallery
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            IsMouseVisible = true;
+            //IsMouseVisible = true;
         }
 
         /// <summary>
@@ -139,6 +139,9 @@ namespace ShootingGallery
 
             spriteBatch.DrawString(gameFont, "Score: " + score.ToString(), new Vector2(3, 3), Color.White);
             spriteBatch.DrawString(gameFont, "Time left: " + Math.Ceiling(timer).ToString(), new Vector2(3, 40), Color.White);
+
+            // Crosshairs
+            spriteBatch.Draw(crosshairs_Sprite, new Vector2(mState.X - 25, mState.Y - 25), Color.White); // To get the img to be at the mouse we subtract the radius
 
             spriteBatch.End();
 
