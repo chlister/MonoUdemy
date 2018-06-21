@@ -12,6 +12,11 @@ namespace ShootingGallery
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+        // Varibles for the imgs
+        Texture2D target_Sprite;
+        Texture2D crosshairs_Sprite;
+        Texture2D background_Sprite;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -41,6 +46,10 @@ namespace ShootingGallery
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
+            target_Sprite = Content.Load<Texture2D>("target");
+            crosshairs_Sprite = Content.Load<Texture2D>("crosshairs");
+            background_Sprite = Content.Load<Texture2D>("sky");
+
         }
 
         /// <summary>
@@ -76,6 +85,12 @@ namespace ShootingGallery
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
+
+            spriteBatch.Begin();
+
+            spriteBatch.Draw(target_Sprite, new Vector2(0, 0), Color.White);
+
+            spriteBatch.End();
 
             base.Draw(gameTime);
         }
