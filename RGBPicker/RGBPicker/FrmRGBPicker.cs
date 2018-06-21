@@ -10,10 +10,10 @@ using System.Windows.Forms;
 
 namespace RGBPicker
 {
-    public partial class Form1 : Form
+    public partial class RGB : Form
     {
         Graphics g;
-        public Form1()
+        public RGB()
         {
             InitializeComponent();
         }

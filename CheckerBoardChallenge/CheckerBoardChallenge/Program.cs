@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace RGBPicker
+namespace CheckerBoardChallenge
 {
     static class Program
     {
@@ -16,7 +16,7 @@ namespace RGBPicker
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new RGB());
+            Application.Run(new FrmCheckerBoard());
         }
     }
 }

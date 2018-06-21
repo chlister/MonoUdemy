@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{A4BF7C66-ED7E-4F82-9886-11D98FB327D7}</ProjectGuid>
+    <ProjectGuid>{F40F2BFB-3AB7-419B-B0C2-8D0099C39206}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>RGBPicker</RootNamespace>
-    <AssemblyName>RGBPicker</AssemblyName>
+    <RootNamespace>CheckerBoardChallenge</RootNamespace>
+    <AssemblyName>CheckerBoardChallenge</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -45,16 +45,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FrmRGBPicker.cs">
+    <Compile Include="FrmCheckerBoard.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FrmRGBPicker.Designer.cs">
-      <DependentUpon>FrmRGBPicker.cs</DependentUpon>
+    <Compile Include="FrmCheckerBoard.Designer.cs">
+      <DependentUpon>FrmCheckerBoard.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="FrmRGBPicker.resx">
-      <DependentUpon>FrmRGBPicker.cs</DependentUpon>
+    <EmbeddedResource Include="FrmCheckerBoard.resx">
+      <DependentUpon>FrmCheckerBoard.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

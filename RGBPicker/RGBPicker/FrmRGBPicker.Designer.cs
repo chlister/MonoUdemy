@@ -1,6 +1,6 @@
 ﻿namespace RGBPicker
 {
-    partial class Form1
+    partial class RGB
     {
         /// <summary>
         /// Required designer variable.
@@ -121,7 +121,7 @@
             this.numBlueUD.TabIndex = 7;
             this.numBlueUD.ValueChanged += new System.EventHandler(this.numBlueUD_ValueChanged);
             // 
-            // Form1
+            // RGB
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -133,7 +133,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.numRedUD);
             this.Controls.Add(this.panel1);
-            this.Name = "Form1";
+            this.Name = "RGB";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.numRedUD)).EndInit();
