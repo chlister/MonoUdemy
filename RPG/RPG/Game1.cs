@@ -12,10 +12,28 @@ namespace RPG
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+        Texture2D player_Sprite;
+        Texture2D playerDown;
+        Texture2D playerUp;
+        Texture2D playerLeft;
+        Texture2D playerRight;
+
+        Texture2D snakeEnemy_Sprite;
+        Texture2D eyeEnemy_Sprite;
+        Texture2D bush_Sprite;
+        Texture2D tree_Sprite;
+        Texture2D heart_Sprite;
+        Texture2D bullet_Sprite;
+
+        Player player = new Player();
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+
+            graphics.PreferredBackBufferHeight = 720;
+            graphics.PreferredBackBufferWidth = 1280;
         }
 
         /// <summary>
@@ -41,6 +59,21 @@ namespace RPG
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
+            player_Sprite = Content.Load<Texture2D>("Player/player");
+            playerDown = Content.Load<Texture2D>("Player/playerDown");
+            playerUp = Content.Load<Texture2D>("Player/playerUp");
+            playerRight = Content.Load<Texture2D>("Player/playerRight");
+            playerLeft = Content.Load<Texture2D>("Player/playerLeft");
+
+            eyeEnemy_Sprite = Content.Load<Texture2D>("Enemies/eyeEnemy");
+            snakeEnemy_Sprite = Content.Load<Texture2D>("Enemies/snakeEnemy");
+
+            bush_Sprite = Content.Load<Texture2D>("Obstacles/bush");
+            tree_Sprite = Content.Load<Texture2D>("Obstacles/tree");
+
+            bullet_Sprite = Content.Load<Texture2D>("Misc/bullet");
+            heart_Sprite= Content.Load<Texture2D>("Misc/heart");
+
         }
 
         /// <summary>
@@ -63,7 +96,7 @@ namespace RPG
                 Exit();
 
             // TODO: Add your update logic here
-
+            player.UpdatePlayer(gameTime);
             base.Update(gameTime);
         }
 
@@ -73,9 +106,14 @@ namespace RPG
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.ForestGreen);
 
             // TODO: Add your drawing code here
+            spriteBatch.Begin();
+
+            spriteBatch.Draw(player_Sprite, player.Position, Color.White);
+
+            spriteBatch.End();
 
             base.Draw(gameTime);
         }
