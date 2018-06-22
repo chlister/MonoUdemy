@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 
 namespace SpaceShipGame
 {
@@ -83,14 +84,26 @@ namespace SpaceShipGame
 
             // TODO: Add your update logic here
 
-            player.ShipUpdate(gameTime);
+            player.ShipUpdate(gameTime, gameController);
             gameController.ConUpdate(gameTime);
 
             for (int i = 0; i < gameController.Asteroids.Count; i++)
             {
                 gameController.Asteroids[i].AsteroidUpdate(gameTime);
+                if (gameController.Asteroids[i].Position.X < 0 - gameController.Asteroids[i].Radius)
+                {
+                    gameController.Asteroids[i].offScreen = true;
+                }
+                int sum = gameController.Asteroids[i].Radius + 30;
+                if (Vector2.Distance(gameController.Asteroids[i].Position, player.position) < sum)
+                {
+                    gameController.inGame = false;
+                    player.position = Ship.defaultPosition;
+                    i = gameController.Asteroids.Count + 1;
+                    gameController.Asteroids.Clear();
+                }
             }
-
+            gameController.Asteroids.RemoveAll(ass => ass.offScreen);
             base.Update(gameTime);
         }
 
@@ -106,9 +119,18 @@ namespace SpaceShipGame
             spriteBatch.Begin();
 
             spriteBatch.Draw(space_Sprite, new Vector2(0, 0), Color.White);
-            spriteBatch.Draw(ship_Sprite, 
-                new Vector2(player.position.X - ship_Sprite.Width, player.position.Y - ship_Sprite.Height), 
+            spriteBatch.Draw(ship_Sprite,
+                new Vector2(player.position.X - 34, player.position.Y - 50),
                 Color.White);
+
+            if (!gameController.inGame)
+            {
+                string menuMsg = "Press enter to begin!";
+                Vector2 sizeOfText = gameFont.MeasureString(menuMsg);
+                spriteBatch.DrawString(gameFont, menuMsg,
+                    new Vector2(640 - sizeOfText.X / 2, 200),
+                    Color.White);
+            }
 
             for (int i = 0; i < gameController.Asteroids.Count; i++)
             {
@@ -118,6 +140,12 @@ namespace SpaceShipGame
                     new Vector2(tempPos.X - tempRad, tempPos.Y - tempRad),
                     Color.White);
             }
+
+            spriteBatch.DrawString(timerFont, 
+                "Time: " + Math.Floor(gameController.totalTime).ToString(),
+                new Vector2(3,3),
+                Color.White
+                );
 
             spriteBatch.End();
 

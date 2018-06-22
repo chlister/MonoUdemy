@@ -10,6 +10,7 @@ namespace SpaceShipGame
     public class Asteroid
     {
         static Random rand = new Random();
+        public bool offScreen = false;
         private float speed;
         private Vector2 position;
         public Vector2 Position { get { return position; } set { position = value; } }
@@ -27,6 +28,7 @@ namespace SpaceShipGame
         {
             float dt = (float)gameTime.ElapsedGameTime.TotalSeconds;
             position.X -= Speed * dt;
+
         }
     }
 }
