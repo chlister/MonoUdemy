@@ -12,6 +12,13 @@ namespace SpaceShipGame
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+        Texture2D ship_Sprite;
+        Texture2D astroid_Sprite;
+        Texture2D space_Sprite;
+
+        SpriteFont gameFont;
+        SpriteFont timerFont;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -41,6 +48,12 @@ namespace SpaceShipGame
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
+            ship_Sprite = Content.Load<Texture2D>("ship");
+            space_Sprite = Content.Load<Texture2D>("space");
+            astroid_Sprite = Content.Load<Texture2D>("asteroid");
+
+            gameFont = Content.Load<SpriteFont>("spaceFont");
+            timerFont = Content.Load<SpriteFont>("timerFont");
         }
 
         /// <summary>
@@ -76,6 +89,11 @@ namespace SpaceShipGame
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
+            spriteBatch.Begin();
+
+            spriteBatch.Draw(space_Sprite, new Vector2(0, 0), Color.White);
+
+            spriteBatch.End();
 
             base.Draw(gameTime);
         }
