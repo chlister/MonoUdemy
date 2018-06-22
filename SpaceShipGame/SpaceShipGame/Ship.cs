@@ -11,10 +11,11 @@ namespace SpaceShipGame
     public class Ship
     {
         public Vector2 position = new Vector2(100, 100);
-        public float Speed { get; set; } = 2;
+        public float Speed { get; set; } = 180;
 
         public void ShipUpdate(GameTime gameTime)
         {
+            // To protect the game from lagging we take the elapsed time and multiply it be the speed
             float dt = (float)gameTime.ElapsedGameTime.TotalSeconds;
             KeyboardState kState = Keyboard.GetState();
 
