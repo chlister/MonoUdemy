@@ -20,7 +20,7 @@ namespace SpaceShipGame
         SpriteFont timerFont;
 
         Ship player = new Ship();
-
+        Asteroid testAsteroid = new Asteroid();
 
         public Game1()
         {
@@ -84,7 +84,7 @@ namespace SpaceShipGame
             // TODO: Add your update logic here
 
             player.ShipUpdate(gameTime);
-
+            testAsteroid.AsteroidUpdate(gameTime);
             base.Update(gameTime);
         }
 
@@ -104,6 +104,9 @@ namespace SpaceShipGame
                 new Vector2(player.position.X - ship_Sprite.Width, player.position.Y - ship_Sprite.Height), 
                 Color.White);
 
+            spriteBatch.Draw(astroid_Sprite,
+                new Vector2(testAsteroid.Position.X - testAsteroid.Radius, testAsteroid.Position.Y - testAsteroid.Radius), 
+                Color.White);
 
 
             spriteBatch.End();
