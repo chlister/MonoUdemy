@@ -19,10 +19,16 @@ namespace SpaceShipGame
         SpriteFont gameFont;
         SpriteFont timerFont;
 
+        Ship player = new Ship();
+
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+
+            graphics.PreferredBackBufferWidth = 1280;
+            graphics.PreferredBackBufferHeight = 720;
         }
 
         /// <summary>
@@ -77,6 +83,8 @@ namespace SpaceShipGame
 
             // TODO: Add your update logic here
 
+            player.ShipUpdate(gameTime);
+
             base.Update(gameTime);
         }
 
@@ -92,6 +100,11 @@ namespace SpaceShipGame
             spriteBatch.Begin();
 
             spriteBatch.Draw(space_Sprite, new Vector2(0, 0), Color.White);
+            spriteBatch.Draw(ship_Sprite, 
+                new Vector2(player.position.X - ship_Sprite.Width, player.position.Y - ship_Sprite.Height), 
+                Color.White);
+
+
 
             spriteBatch.End();
 
