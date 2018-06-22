@@ -25,13 +25,6 @@
 /processorParam:TextureFormat=Color
 /build:crosshairs.png
 
-#begin galleryFont.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:galleryFont.spritefont
-
 #begin sky.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -55,4 +48,11 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:target.png
+
+#begin File.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:File.spritefont
 

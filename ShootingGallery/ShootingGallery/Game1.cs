@@ -67,7 +67,7 @@ namespace ShootingGallery
             target_Sprite = Content.Load<Texture2D>("target");
             crosshairs_Sprite = Content.Load<Texture2D>("crosshairs");
             background_Sprite = Content.Load<Texture2D>("sky");
-            gameFont = Content.Load<SpriteFont>("galleryFont");
+            gameFont = Content.Load<SpriteFont>("File");
         }
 
         /// <summary>

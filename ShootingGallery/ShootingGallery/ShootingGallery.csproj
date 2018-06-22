@@ -61,10 +61,6 @@
   <ItemGroup>
     <None Include="app.manifest" />
     <MonoGameContentReference Include="Content\Content.mgcb" />
-    <None Include="Content\crosshairs.xnb" />
-    <None Include="Content\galleryFont.xnb" />
-    <None Include="Content\sky.xnb" />
-    <None Include="Content\target.xnb" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />
