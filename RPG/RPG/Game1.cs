@@ -154,6 +154,8 @@ namespace RPG
             if (player.Health > 0)
                 player.Update(gameTime);
 
+            cam.LookAt(player.Position);
+
             foreach (Projectile proj in Projectile.projectiles)
             {
                 proj.Update(gameTime);
@@ -194,12 +196,14 @@ namespace RPG
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.ForestGreen);
-            mapRendere.Draw(myMap);
+            mapRendere.Draw(myMap,cam.GetViewMatrix());
             // TODO: Add your drawing code here
-            if (player.Health > 0)
-                player.anim.Draw(spriteBatch, new Vector2(player.Position.X - 48, player.Position.Y - 48)); // has it's own .begin() & .end()
 
-            spriteBatch.Begin();
+            spriteBatch.Begin(transformMatrix: cam.GetViewMatrix());
+
+             if (player.Health > 0)
+                player.anim.Draw(spriteBatch, new Vector2(player.Position.X - 48, player.Position.Y - 48));
+
             foreach (Projectile proj in Projectile.projectiles)
             {
                 spriteBatch.Draw(bullet_Sprite, new Vector2(proj.Postition.X - proj.Radius, proj.Postition.Y - proj.Radius), Color.White);
@@ -235,11 +239,15 @@ namespace RPG
                     new Vector2(enemy.Position.X - rad, enemy.Position.Y - rad),
                     Color.White);
             }
+            
+
+            spriteBatch.End();
+
+            spriteBatch.Begin();
             for (int i = 0; i < player.Health; i++)
             {
                 spriteBatch.Draw(heart_Sprite, new Vector2(3 + i * 63, 3), Color.White);
             }
-
             spriteBatch.End();
 
             base.Draw(gameTime);
