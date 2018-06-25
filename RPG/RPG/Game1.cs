@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Input;
 using MonoGame.Extended.Tiled;
 using MonoGame.Extended.Graphics;
 using MonoGame.Extended.Tiled.Graphics;
+using MonoGame.Extended;
 
 namespace RPG
 {
@@ -31,6 +32,7 @@ namespace RPG
         TiledMapRenderer mapRendere;
         TiledMap myMap;
 
+        Camera2D cam;
         Player player = new Player();
 
         public Game1()
@@ -52,6 +54,7 @@ namespace RPG
         {
             // TODO: Add your initialization logic here
             mapRendere = new TiledMapRenderer(GraphicsDevice);
+            cam = new Camera2D(GraphicsDevice);
             base.Initialize();
         }
 
@@ -87,8 +90,43 @@ namespace RPG
 
             myMap = Content.Load<TiledMap>("Misc/GameMap");
 
-            Obstacle.obstacles.Add(new Tree(new Vector2(500, 100)));
-            Obstacle.obstacles.Add(new Bush(new Vector2(700, 300)));
+            TiledMapObject[] allEnemies = myMap.GetLayer<TiledMapObjectLayer>("enemies").Objects;
+            foreach (var en in allEnemies)
+            {
+                string type;
+                en.Properties.TryGetValue("Type", out type);
+                switch (type)
+                {
+                    case "Snake":
+                        Enemy.enemies.Add(new Snake(en.Position));
+                        break;
+                    case "Eye":
+                        Enemy.enemies.Add(new Eye(en.Position));
+                        break;
+                    default:
+                        Enemy.enemies.Add(new Snake(en.Position));
+                        break;
+                }
+            }
+
+            TiledMapObject[] allObjects = myMap.GetLayer<TiledMapObjectLayer>("obstacles").Objects;
+            foreach (var en in allObjects)
+            {
+                string type;
+                en.Properties.TryGetValue("Type", out type);
+                switch (type)
+                {
+                    case "Tree":
+                        Obstacle.obstacles.Add(new Tree(en.Position));
+                        break;
+                    case "Bush":
+                        Obstacle.obstacles.Add(new Bush(en.Position));
+                        break;
+                    default:
+                        Obstacle.obstacles.Add(new Tree(en.Position));
+                        break;
+                }
+            }
         }
 
         /// <summary>
@@ -129,9 +167,9 @@ namespace RPG
                     }
                 }
                 if (Obstacle.DidCollide(proj.Postition, proj.Radius))
-                    {
-                        proj.Collided = true;
-                    }
+                {
+                    proj.Collided = true;
+                }
             }
             foreach (Enemy en in Enemy.enemies)
             {

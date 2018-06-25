@@ -23,7 +23,7 @@ namespace RPG
 
 
         public int Health { get => health; set => health = value; }
-        public Vector2 Position { get => position; set => position = value; }
+        public Vector2 Position { get => position; set => position = value; } 
         public int Radius { get => radius; set => radius = value; }
         public float HealthTimer { get => healthTimer; set => healthTimer = value; }
 
