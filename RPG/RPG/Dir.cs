@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace RPG
 {
-    enum Dir
+    public enum Dir
     {
-        Up,
         Down,
+        Up,
         Left,
         Right
     }

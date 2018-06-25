@@ -1,6 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using MonoGame.Extended.Tiled;
+using MonoGame.Extended.Graphics;
+using MonoGame.Extended.Tiled.Graphics;
 
 namespace RPG
 {
@@ -25,6 +28,9 @@ namespace RPG
         Texture2D heart_Sprite;
         Texture2D bullet_Sprite;
 
+        TiledMapRenderer mapRendere;
+        TiledMap myMap;
+
         Player player = new Player();
 
         public Game1()
@@ -45,7 +51,7 @@ namespace RPG
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-
+            mapRendere = new TiledMapRenderer(GraphicsDevice);
             base.Initialize();
         }
 
@@ -72,8 +78,17 @@ namespace RPG
             tree_Sprite = Content.Load<Texture2D>("Obstacles/tree");
 
             bullet_Sprite = Content.Load<Texture2D>("Misc/bullet");
-            heart_Sprite= Content.Load<Texture2D>("Misc/heart");
+            heart_Sprite = Content.Load<Texture2D>("Misc/heart");
 
+            player.animations[0] = new AnimatedSprite(playerDown, 1, 4);
+            player.animations[1] = new AnimatedSprite(playerUp, 1, 4);
+            player.animations[2] = new AnimatedSprite(playerLeft, 1, 4);
+            player.animations[3] = new AnimatedSprite(playerRight, 1, 4);
+
+            myMap = Content.Load<TiledMap>("Misc/GameMap");
+
+            Obstacle.obstacles.Add(new Tree(new Vector2(500, 100)));
+            Obstacle.obstacles.Add(new Bush(new Vector2(700, 300)));
         }
 
         /// <summary>
@@ -95,8 +110,42 @@ namespace RPG
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
+
             // TODO: Add your update logic here
-            player.UpdatePlayer(gameTime);
+
+            if (player.Health > 0)
+                player.Update(gameTime);
+
+            foreach (Projectile proj in Projectile.projectiles)
+            {
+                proj.Update(gameTime);
+                foreach (Enemy en in Enemy.enemies)
+                {
+                    int sum = proj.Radius + en.Radius;
+                    if (Vector2.Distance(proj.Postition, en.Position) < sum)
+                    {
+                        proj.Collided = true;
+                        en.Health--;
+                    }
+                }
+                if (Obstacle.DidCollide(proj.Postition, proj.Radius))
+                    {
+                        proj.Collided = true;
+                    }
+            }
+            foreach (Enemy en in Enemy.enemies)
+            {
+                en.Update(gameTime, player.Position);
+
+                int sum = player.Radius + en.Radius;
+                if (Vector2.Distance(player.Position, en.Position) < sum && player.HealthTimer <= 0)
+                {
+                    player.Health--;
+                    player.HealthTimer = 1.5F;
+                }
+            }
+            Projectile.projectiles.RemoveAll(p => p.Collided);
+            Enemy.enemies.RemoveAll(e => e.Health <= 0);
             base.Update(gameTime);
         }
 
@@ -107,11 +156,51 @@ namespace RPG
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.ForestGreen);
-
+            mapRendere.Draw(myMap);
             // TODO: Add your drawing code here
-            spriteBatch.Begin();
+            if (player.Health > 0)
+                player.anim.Draw(spriteBatch, new Vector2(player.Position.X - 48, player.Position.Y - 48)); // has it's own .begin() & .end()
 
-            spriteBatch.Draw(player_Sprite, player.Position, Color.White);
+            spriteBatch.Begin();
+            foreach (Projectile proj in Projectile.projectiles)
+            {
+                spriteBatch.Draw(bullet_Sprite, new Vector2(proj.Postition.X - proj.Radius, proj.Postition.Y - proj.Radius), Color.White);
+            }
+            // Obstacle draws 
+            foreach (Obstacle obs in Obstacle.obstacles)
+            {
+                Texture2D spriteToDraw;
+                if (obs.GetType() == typeof(Tree))
+                {
+                    spriteToDraw = tree_Sprite;
+                }
+                else
+                {
+                    spriteToDraw = bush_Sprite;
+                }
+                spriteBatch.Draw(spriteToDraw, obs.Position, Color.White);
+            }
+            // Enemy draws
+            foreach (Enemy enemy in Enemy.enemies)
+            {
+                int rad = enemy.Radius;
+                Texture2D spriteToDraw;
+                if (enemy.GetType() == typeof(Snake))
+                {
+                    spriteToDraw = snakeEnemy_Sprite;
+                }
+                else
+                {
+                    spriteToDraw = eyeEnemy_Sprite;
+                }
+                spriteBatch.Draw(spriteToDraw,
+                    new Vector2(enemy.Position.X - rad, enemy.Position.Y - rad),
+                    Color.White);
+            }
+            for (int i = 0; i < player.Health; i++)
+            {
+                spriteBatch.Draw(heart_Sprite, new Vector2(3 + i * 63, 3), Color.White);
+            }
 
             spriteBatch.End();
 
