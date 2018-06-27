@@ -88,7 +88,11 @@ namespace BlackBoardChallenge
         {
             if (mousePressed)
             {
-                g.DrawLine(p, xLast, yLast, e.X, e.Y);
+                Point[] points = new Point[2];
+                
+                points[0] = new Point(xLast, yLast);
+                points[1] = new Point(e.X, e.Y);
+                g.DrawPolygon(p, points);
                 xLast = e.X;
                 yLast = e.Y;
             }
