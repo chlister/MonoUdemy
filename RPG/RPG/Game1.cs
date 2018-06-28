@@ -93,8 +93,7 @@ namespace RPG
             TiledMapObject[] allEnemies = myMap.GetLayer<TiledMapObjectLayer>("enemies").Objects;
             foreach (var en in allEnemies)
             {
-                string type;
-                en.Properties.TryGetValue("Type", out type);
+                en.Properties.TryGetValue("Type", out string type);
                 switch (type)
                 {
                     case "Snake":
@@ -184,8 +183,14 @@ namespace RPG
                     player.HealthTimer = 1.5F;
                 }
             }
-            Projectile.projectiles.RemoveAll(p => p.Collided);
-            Enemy.enemies.RemoveAll(e => e.Health <= 0);
+            Projectile
+                .projectiles
+                .RemoveAll(p => p.Collided);
+
+            Enemy
+                .enemies
+                .RemoveAll(e => e.Health <= 0);
+
             base.Update(gameTime);
         }
 
