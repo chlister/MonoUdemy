@@ -33,6 +33,7 @@
             this.startStop_btn = new System.Windows.Forms.Button();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.timer2 = new System.Windows.Forms.Timer(this.components);
+            this.OutputBox = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.picture_Box)).BeginInit();
             this.SuspendLayout();
             // 
@@ -46,7 +47,7 @@
             // 
             // startStop_btn
             // 
-            this.startStop_btn.Location = new System.Drawing.Point(205, 287);
+            this.startStop_btn.Location = new System.Drawing.Point(205, 264);
             this.startStop_btn.Name = "startStop_btn";
             this.startStop_btn.Size = new System.Drawing.Size(75, 23);
             this.startStop_btn.TabIndex = 1;
@@ -63,12 +64,22 @@
             this.timer2.Interval = 280;
             this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
             // 
+            // OutputBox
+            // 
+            this.OutputBox.AutoSize = true;
+            this.OutputBox.Location = new System.Drawing.Point(220, 317);
+            this.OutputBox.Name = "OutputBox";
+            this.OutputBox.Size = new System.Drawing.Size(35, 13);
+            this.OutputBox.TabIndex = 2;
+            this.OutputBox.Text = "label1";
+            // 
             // FrmAnimation
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(473, 364);
+            this.Controls.Add(this.OutputBox);
             this.Controls.Add(this.startStop_btn);
             this.Controls.Add(this.picture_Box);
             this.Name = "FrmAnimation";
@@ -77,6 +88,7 @@
             this.Load += new System.EventHandler(this.FrmAnimation_Load);
             ((System.ComponentModel.ISupportInitialize)(this.picture_Box)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -86,6 +98,7 @@
         private System.Windows.Forms.Button startStop_btn;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Timer timer2;
+        private System.Windows.Forms.Label OutputBox;
     }
 }
 

@@ -64,27 +64,32 @@ namespace LogoAnimator
 
         private void timer2_Tick(object sender, EventArgs e)
         {
+            Point p;
             if (goRight)
             {
-                picture_Box.Location = new Point(picture_Box.Location.X + 1, picture_Box.Location.Y);
-                if (picture_Box.Location.X == this.Width)
+                p = new Point(picture_Box.Location.X + 10, picture_Box.Location.Y);
+                if (p.X + (picture_Box.Width) >= this.Width)
                 {
                     goRight = false;
                     images = GetImage(Image.FromFile(@".\Assets\SnailLeft.png"));
-
                 }
+                else
+                    picture_Box.Location = p;
             }
 
             else
             {
-                picture_Box.Location = new Point(picture_Box.Location.X - 1, picture_Box.Location.Y);
-                if (picture_Box.Location.X == 0)
+                picture_Box.Location = new Point(picture_Box.Location.X - 10, picture_Box.Location.Y);
+                if (picture_Box.Location.X <= 0)
                 {
                     goRight = true;
                     images = GetImage(Image.FromFile(@".\Assets\SnailRight.png"));
                 }
             }
-
+            OutputBox.Text = $"Picture X: {picture_Box.Location.X}" +
+                $"\r Picture Y: {picture_Box.Location.Y}" +
+                $"\r Picture width {picture_Box.Width}" +
+                $"\r Window width: {this.Width}";
         }
     }
 }
