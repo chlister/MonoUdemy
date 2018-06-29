@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 namespace RPG
 {
-public    class Obstacle
+public   abstract class Obstacle
     {
         private Vector2 position;
         private int radius;
