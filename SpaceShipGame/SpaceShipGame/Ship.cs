@@ -5,14 +5,29 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ArduinoOutput;
 
 namespace SpaceShipGame
 {
     public class Ship
     {
+        private JoystickOutput js;
+        private Direction _joyDir;
+
         public Vector2 position = defaultPosition;
         public float Speed { get; set; } = 180;
         static public Vector2 defaultPosition = new Vector2(640, 360);
+
+        public Ship()
+        {
+            js = new JoystickOutput();
+            js.DirectionChanged  += OnDirectionChanged;
+        }
+
+        private void OnDirectionChanged(object sender, DirectionEventArgs e)
+        {
+            _joyDir = e.Direction;
+        }
 
         public void ShipUpdate(GameTime gameTime, Controller controller)
         {
@@ -22,19 +37,19 @@ namespace SpaceShipGame
 
             if (controller.inGame)
             {
-                if (kState.IsKeyDown(Keys.Right)&& position.X < 1280)
+                if (kState.IsKeyDown(Keys.Right)&& position.X < 1280 || _joyDir == Direction.Right && position.X < 1280)
                 {
                     position.X += Speed * dt;
                 }
-                if (kState.IsKeyDown(Keys.Left) && position.X > 0)
+                if (kState.IsKeyDown(Keys.Left) && position.X > 0 || _joyDir == Direction.Left && position.X > 0)
                 {
                     position.X -= Speed * dt;
                 }
-                if (kState.IsKeyDown(Keys.Down)&& position.Y < 720)
+                if (kState.IsKeyDown(Keys.Down)&& position.Y < 720 || _joyDir == Direction.Down && position.Y < 720 )
                 {
                     position.Y += Speed * dt;
                 }
-                if (kState.IsKeyDown(Keys.Up)&& position.Y > 0)
+                if (kState.IsKeyDown(Keys.Up)&& position.Y > 0 || _joyDir == Direction.Up && position.Y > 0)
                 {
                     position.Y -= Speed * dt;
                 }
